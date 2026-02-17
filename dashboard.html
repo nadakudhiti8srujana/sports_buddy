@@ -1,27 +1,36 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+<title>Sports Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+
 <nav>
     <h2>Sports Dashboard</h2>
     <button onclick="logout()">Logout</button>
 </nav>
 
 <div class="container">
+
+    <!-- ADD EVENT -->
     <h3>Add Sports Event</h3>
     <input type="text" id="sportName" placeholder="Sport Name">
     <input type="text" id="city" placeholder="City">
     <input type="text" id="time" placeholder="Time">
     <button onclick="addEvent()">Add Event</button>
 
+    <!-- AVAILABLE -->
     <h3>Available Events</h3>
     <div id="eventsList"></div>
+
+    <!-- JOINED -->
+    <h3>My Joined Events</h3>
+    <div id="joinedList"></div>
+
 </div>
 
-<script type="module" src="js/user.js"></script>
+<script src="js/user.js"></script>
 </body>
 </html>

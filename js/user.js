@@ -1,56 +1,78 @@
-import { firebaseConfig } from './firebase-config.js';
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getDatabase, ref, push, onValue } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const database = getDatabase(app);
-
-// Add Event
-window.addEvent = function() {
-    const name = document.getElementById("sportName").value;
-    const city = document.getElementById("city").value;
-    const time = document.getElementById("time").value;
-
-    if(name === "" || city === "" || time === "") {
-        alert("Please fill all fields");
-        return;
-    }
-
-    const eventsRef = ref(database, "events");
-    push(eventsRef, {
-        name: name,
-        city: city,
-        time: time
-    });
-
-    alert("Event Added Successfully");
+window.onload = function(){
+  loadEvents();
+  loadJoined();
 }
 
-// Load Events
-const eventsRef = ref(database, "events");
+function logout(){
+  window.location.href = "login.html";
+}
 
-onValue(eventsRef, (snapshot) => {
-    const data = snapshot.val();
-    const list = document.getElementById("eventsList");
-    list.innerHTML = "";
+function addEvent(){
+  const sport = document.getElementById("sportName").value;
+  const city = document.getElementById("city").value;
+  const time = document.getElementById("time").value;
 
-    for(let id in data) {
-        list.innerHTML += `
-            <div class="card">
-                <h4>${data[id].name}</h4>
-                <p>City: ${data[id].city}</p>
-                <p>Time: ${data[id].time}</p>
-            </div>
-        `;
-    }
-});
+  if(!sport || !city || !time){
+    alert("Fill all fields");
+    return;
+  }
 
-// Logout
-window.logout = function() {
-    signOut(auth).then(() => {
-        window.location.href = "login.html";
-    });
+  let events = JSON.parse(localStorage.getItem("events")) || [];
+
+  events.push({sport, city, time});
+
+  localStorage.setItem("events", JSON.stringify(events));
+
+  loadEvents();
+}
+
+function loadEvents(){
+  const events = JSON.parse(localStorage.getItem("events")) || [];
+  const container = document.getElementById("eventsList");
+  container.innerHTML="";
+
+  events.forEach((e,i)=>{
+    const card = document.createElement("div");
+    card.className="card";
+
+    card.innerHTML = `
+      <h4>${e.sport}</h4>
+      <p>${e.city}</p>
+      <p>${e.time}</p>
+      <button onclick="joinEvent(${i})">Join</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function joinEvent(index){
+  let events = JSON.parse(localStorage.getItem("events")) || [];
+  let joined = JSON.parse(localStorage.getItem("joined")) || [];
+
+  joined.push(events[index]);
+
+  localStorage.setItem("joined", JSON.stringify(joined));
+
+  loadJoined();
+}
+
+function loadJoined(){
+  const joined = JSON.parse(localStorage.getItem("joined")) || [];
+  const container = document.getElementById("joinedList");
+  container.innerHTML="";
+
+  joined.forEach(e=>{
+    const card=document.createElement("div");
+    card.className="card";
+
+    card.innerHTML = `
+      <h4>${e.sport}</h4>
+      <p>${e.city}</p>
+      <p>${e.time}</p>
+      <span style="color:green;">Joined</span>
+    `;
+
+    container.appendChild(card);
+  });
 }

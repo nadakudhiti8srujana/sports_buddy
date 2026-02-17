@@ -1,55 +1,76 @@
-
-body {
-    font-family: Arial;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+body{
+  margin:0;
+  font-family:Segoe UI;
+  background:#eef2f7;
 }
 
-nav {
-    background: #333;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
+/* NAVBAR */
+nav{
+  background:#1e3a8a;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-nav a, nav button {
-    color: white;
-    margin-left: 10px;
-    text-decoration: none;
-    background: #555;
-    padding: 5px 10px;
-    border: none;
+nav button{
+  background:#ef4444;
+  border:none;
+  color:white;
+  padding:8px 15px;
+  border-radius:6px;
 }
 
-.container {
-    padding: 20px;
+/* CONTAINER */
+.container{
+  width:90%;
+  max-width:900px;
+  margin:30px auto;
 }
 
-.form-container {
-    width: 300px;
-    margin: 100px auto;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px gray;
+/* INPUTS */
+input{
+  padding:10px;
+  margin:8px 5px;
+  border-radius:6px;
+  border:1px solid #ccc;
 }
 
-input {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
+button{
+  padding:10px 15px;
+  border:none;
+  background:#2563eb;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
 }
 
-button {
-    padding: 8px;
-    margin-top: 10px;
-    cursor: pointer;
+/* CARDS */
+.card{
+  background:white;
+  padding:15px;
+  margin:10px 0;
+  border-radius:10px;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
 }
 
-.card {
-    background: white;
-    padding: 10px;
-    margin: 10px 0;
-    box-shadow: 0 0 5px gray;
+.card h4{
+  margin:0;
+  color:#1e3a8a;
+}
+
+.card button{
+  margin-top:10px;
+}
+
+/* LOGIN FORM */
+.form-container{
+  width:320px;
+  margin:120px auto;
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
